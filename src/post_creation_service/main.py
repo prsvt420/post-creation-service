@@ -1,4 +1,5 @@
 import asyncio
+from typing import List
 
 from src.post_creation_service.dataclasses import PostData
 from src.post_creation_service.services import RedditService, XService
@@ -8,7 +9,7 @@ async def main():
     reddit_service: RedditService = RedditService()
     x_service: XService = XService()
 
-    posts = [
+    posts: List = [
         {
             'subreddit': 'test',
             'title': 'test',
@@ -17,8 +18,8 @@ async def main():
         },
     ]
 
-    reddit_service_tasks = [reddit_service.create_post(PostData(**post)) for post in posts]
-    x_service_tasks = [x_service.create_post(PostData(**post)) for post in posts]
+    reddit_service_tasks: List = [reddit_service.create_post(PostData(**post)) for post in posts]
+    x_service_tasks: List = [x_service.create_post(PostData(**post)) for post in posts]
     await asyncio.gather(*reddit_service_tasks, *x_service_tasks)
 
 if __name__ == '__main__':
